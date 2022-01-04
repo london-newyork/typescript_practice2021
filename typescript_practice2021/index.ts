@@ -77,25 +77,61 @@ type Clothsize = 'Small' | 'Mid' | 'Large'
 
 // let developer: Human
 
-interface Human {
-    name: string
+// interface Human {
+//     name: string
+//     age: number
+//     greeting(message: string): void//interface上ではこの形でメソッドを指定できる
+// }//interfaceはオブジェクトのみを扱う。typeは全部を扱う。
+
+// type addFunc = (num1: number, num2: number) => number
+interface addFunc {
+    (num1: number, num2: number): number
+}
+let addFunc: addFunc
+addFunc = (n1: number, n2: number) => {
+    return n1 + n2
+}
+
+type Nameable = {
+    name?: string
+    nickName?: string //?:あってもなくてもいいプロパティの後につける
+}
+
+const nameable: Nameable = {
+    name: 'Quill',
+    nickName: 'Quilla'
+}
+interface Human extends Nameable {
     age: number
-    greeting(message: string): void//interface上ではこの形でメソッドを指定できる
-}//interfaceはオブジェクトのみを扱う。typeは全部を扱う。
+    greeting(message: string) :void
+}
+
 class Developer implements Human {
-    constructor (public name: string, public age: number, public experience: number){
+    constructor ( public age: number, public experience: number, public name?: string){
     }
     greeting(message: string){
         console.log('Hello!')
     }
 }
 
-const human: Human = {
+const tmpDeveloper: Human = {
     name: 'Quill',
     age: 38,
-    greeting(message: string){
+    greeting(message: string = 'Hello'){
+        // if (message){
+        //     message.toUpperCase()
+        // }
         console.log(message)
     }
 }
 
+const user: Human = new Developer(38, 3)
+if(user.name){
+    user.name.toUpperCase()
+}
+
 let developer: Human
+
+
+
+
